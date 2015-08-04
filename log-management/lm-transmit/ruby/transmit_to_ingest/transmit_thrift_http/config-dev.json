@@ -1,0 +1,81 @@
+{
+  "client": {
+    "customer_id": "bae_development_and_test"
+  },
+  "logging" : {
+    "output_file": "/tmp/log/log_management/log_management.log",
+    "log_level": "info"
+  },
+  "process_setup" : {
+    "pidfile": "/tmp/log_management/data_acquisition_processes.pid"
+  },
+  "queue_setup": {
+    "binlog_directory": "/tmp/log_management_queue_binlogs"
+  },
+  "log_sources": {
+    "log_generator_program_pix": {
+      "source_ips": [
+        "192.168.34.10", "127.0.0.1"
+      ],
+      "receiving_host": "0.0.0.0",
+      "receiving_port_number": 5140,
+      "receiving_port_type": "udp",
+      "parser_format": "PIX"
+    },
+    "log_generator_program_fortinet": {
+      "source_ips": [
+        "192.168.34.10", "127.0.0.1"
+      ],
+      "receiving_host": "0.0.0.0",
+      "receiving_port_number": 5141,
+      "receiving_port_type": "udp",
+      "parser_format": "FORTINET"
+    },
+    "interactive_tester": {
+      "source_ips": [
+        "127.0.0.1", "localhost"
+      ],
+      "receiving_host": "0.0.0.0",
+      "receiving_port_number": 1514,
+      "receiving_port_type": "tcp",
+      "parser_format": "pix"
+    },
+    "generic_events": {
+      "source_ips": [
+        "127.0.0.1", "localhost"
+      ],
+      "receiving_host": "0.0.0.0",
+      "receiving_port_number": 1515,
+      "receiving_port_type": "tcp",
+      "parser_format": "generic"
+    }
+  },
+  "queues" : {
+    "raw_events" : {
+      "hostname": "localhost",
+      "port": 9900,
+      "filestorage": "/tmp/log_management_queue_files/p_9900"
+    },
+    "output_single": {
+      "hostname": "localhost",
+      "port": 9901,
+      "filestorage": "/tmp/log_management_queue_files/p_9901"
+    },
+    "output_aggregated": {
+      "hostname": "localhost",
+      "port": 9902,
+      "filestorage": "/tmp/log_management_queue_files/p_9902"
+    }
+  },
+  "input_events": {
+    "saved_events_log": "/tmp/log/log_management/saved_events.log",
+    "max_event_length": 5000
+  },
+  "aggregation": {
+    "max_records": 5
+  },
+  "ingest" : {
+    "host": "localhost",
+    "port": 5144
+  }
+}

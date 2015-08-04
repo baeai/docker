@@ -1,0 +1,72 @@
+{
+  "client": {
+    "customer_id": "bae_development_and_test"
+  },
+  "logging" : {
+    "output_file": "/var/log/log_management/log_management.log",
+    "log_level": "info"
+  },
+  "process_setup" : {
+    "pidfile": "/var/log/log_management/data_acquisition_processes.pid"
+  },
+  "queue_setup": {
+    "binlog_directory": "/var/log_management_queue_binlogs"
+  },
+  "log_sources": {
+    "log_generator_program": {
+      "source_ips": [
+        "192.168.34.10", "127.0.0.1"
+      ],
+      "receiving_host": "0.0.0.0",
+      "receiving_port_number": 5140,
+      "receiving_port_type": "udp",
+      "parser_format": "PIX"
+    },
+    "log_generator_program_fortinet": {
+      "source_ips": [
+        "192.168.34.10", "127.0.0.1"
+      ],
+      "receiving_host": "0.0.0.0",
+      "receiving_port_number": 5141,
+      "receiving_port_type": "udp",
+      "parser_format": "FORTINET"
+    },
+    "generic_events": {
+      "source_ips": [
+        "127.0.0.2", "localhost"
+      ],
+      "receiving_host": "0.0.0.0",
+      "receiving_port_number": 1514,
+      "receiving_port_type": "tcp",
+      "parser_format": "generic"
+    }
+  },
+  "queues" : {
+    "raw_events" : {
+      "hostname": "localhost",
+      "port": 9900,
+      "filestorage": "/var/log_management_queue_files/p_9900"
+    },
+    "output_single": {
+      "hostname": "localhost",
+      "port": 9901,
+      "filestorage": "/var/log_management_queue_files/p_9901"
+    },
+    "output_aggregated": {
+      "hostname": "localhost",
+      "port": 9902,
+      "filestorage": "/var/log_management_queue_files/p_9902"
+    }
+  },
+  "input_events": {
+    "saved_events_log": "/var/log/log_management/saved_events.log",
+    "max_event_length": 5000
+  },
+  "aggregation": {
+    "max_records": 20
+  },
+  "ingest" : {
+    "host": "lm01flu01.dev.silversky.com",
+    "port": 5143
+  }
+}
