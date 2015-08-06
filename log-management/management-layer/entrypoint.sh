@@ -19,5 +19,9 @@ echo "listen_addresses='*'" >>/var/lib/postgresql/data/postgresql.conf
 su postgres -c "postgres"
 su postgres -c "psql -U postgres -d postgres -c \"alter user postgres with password '$POSTGRES_PASSWORD';\"" \
 && touch /postgresql.installed
-su postgres -c psql --file /usr/share/pgsql/contrib/adminpack.sql
+su postgres -c "psql --file=/usr/share/pgsql/contrib/adminpack.sql"
 else
+
+su postgres "$@"
+
+fi
