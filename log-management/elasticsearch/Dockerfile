@@ -1,6 +1,6 @@
 FROM oracle/oraclelinux:6
 
-ENV ELASTICSEARCH_VERSION 1.5
+ENV ELASTICSEARCH_VERSION 1.6
 
 
 ##configure elasticsearch repo
@@ -17,9 +17,7 @@ RUN echo "elasticsearch - nofile 65535" >>/etc/security/limits.conf \
 
 RUN yum install elasticsearch wget which -y
 
-##download necessary jar lib 
-RUN curl http://per5-registry-01.sys.silversky.com/pub/logmanangement/logm-transform-plugin.jar \
->/usr/share/elasticsearch/lib/logm-transform-plugin.jar 
+COPY logm-transform-plugin.jar /usr/share/elasticsearch/lib/logm-transform-plugin.jar 
 
 ##install java
 RUN wget --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" \
@@ -33,10 +31,12 @@ ENV PATH /usr/share/elasticsearch/bin:$PATH
 
 COPY config /usr/share/elasticsearch/config
 
-RUN sed -i s/256m/4g/ /usr/share/elasticsearch/bin/elasticsearch.in.sh \
-&& sed -i s/1g/4g/ /usr/share/elasticsearch/bin/elasticsearch.in.sh
+#RUN sed -i s/256m/4g/ /usr/share/elasticsearch/bin/elasticsearch.in.sh \
+#&& sed -i s/1g/4g/ /usr/share/elasticsearch/bin/elasticsearch.in.sh
 
 COPY entrypoint.sh /
+
+VOLUME /usr/share/elasticsearch/data
 
 RUN chmod 755 /entrypoint.sh
 
